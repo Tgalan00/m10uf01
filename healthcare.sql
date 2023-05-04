@@ -1,5 +1,11 @@
-CREATE DATABASE IF NOT EXISTS evilcorp;
+CREATE DATABASE IF NOT EXISTS healthcare;
+
+DROP TABLE IF EXISTS treatments;
+DROP TABLE IF EXISTS diagnoses;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS medicines;
+DROP TABLE IF EXISTS diseases;
+DROP TABLE IF EXISTS doctors;
 
 CREATE TABLE `users`(
 	id_user BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -12,50 +18,44 @@ CREATE TABLE `users`(
 	date DATETIME NOT NULL DEFAULT now());
 
 
-DROP TABLE IF EXISTS medicines;
-
 CREATE TABLE medicines(
-	id_medicine UINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_medicine INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	medicine VARCHAR(192) NOT NULL,
 	cost DECIMAL(9, 2) NOT NULL,
 	secondary_effects TEXT,
 	description TEXT);
 
-DROP TABLE IF EXSISTS diseases;
 
 CREATE TABLE diseases(
-	id_disease UINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_disease INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	disease VARCHAR(64) NOT NULL,
 	medical_area VARCHAR(64) NOT NULL,
 	risk_of_the_disease INT NOT NULL,
 	common_sympthoms TEXT,
 	description TEXT);
 
-DROP TABLE IF EXISTS doctors;
 
-CREATE TABLE IF EXISTS doctors(
-	id_doctor UINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE doctors(
+	id_doctor INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	doctor VARCHAR(32) NOT NULL);
 
-DROP TABLE IF EXISTS diagnoses;
 
 CREATE TABLE diagnoses(
 	id_diagnosis BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	diagnosis TEXT,
 	datetime DATETIME NOT NULL DEFAULT now(),
-	id_doctor UINT NOT NULL,
+	id_doctor INT UNSIGNED NOT NULL,
 	id_user BIGINT UNSIGNED NOT NULL,
-	id_disease UINT NOT NULL,
+	id_disease INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_doctor) REFERENCES doctors(id_doctor),
 	FOREIGN KEY (id_user) REFERENCES users(id_user),
 	FOREIGN KEY (id_disease) REFERENCES diseases(id_disease));
 
-DROP TABLE IF EXISTS treatments;
 
 CREATE TABLE treatments(
 	id_treatment BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_diagnosis BIGINT UNSIGNED NOT NULL,
-	id_medicine UINT NOT NULL,
+	id_medicine INT UNSIGNED NOT NULL,
 	FOREIGN KEY (id_diagnosis) REFERENCES diagnoses(id_diagnosis),
 	FOREIGN KEY (id_medicine) REFERENCES medicines(id_medicine)
 );
@@ -70,10 +70,10 @@ INSERT INTO `users`(username, name, surname, email, country, password)
 VALUES ("naranjito", "Tan", "Kan", "tankan@bing.com", "Francia", "kjgbjkgbjkbBKJBKJB34481209unFDlkfnlfkn");
 
 INSERT INTO doctors(doctor)
-VALUES (Alfonso);
+VALUES ("Alfonso");
 
 INSERT INTO doctors(doctor)
-VALUES (Bonifacio);
+VALUES ("Bonifacio");
 
 INSERT INTO medicines(medicine, price, secondary_effects, description)
 VALUES ("ibuprofeno", 15, "no tiene", "ya no te duele la panxa");
