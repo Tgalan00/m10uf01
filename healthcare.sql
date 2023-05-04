@@ -11,7 +11,8 @@ CREATE TABLE `users`(
 	id_user BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(32) NOT NULL,
 	name VARCHAR(64) NOT NULL,
-	surname VARCHAR(64), birthday DATE NOT NULL, 
+	surname VARCHAR(64), 
+	birthday DATETIME DEFAULT now(), 
 	email VARCHAR(32) NOT NULL, 
 	country VARCHAR(64) NOT NULL,
 	password VARCHAR(32), 
@@ -47,27 +48,27 @@ CREATE TABLE diagnoses(
 	id_doctor INT UNSIGNED NOT NULL,
 	id_user BIGINT UNSIGNED NOT NULL,
 	id_disease INT UNSIGNED NOT NULL,
-	FOREIGN KEY (id_doctor) REFERENCES doctors(id_doctor),
-	FOREIGN KEY (id_user) REFERENCES users(id_user),
-	FOREIGN KEY (id_disease) REFERENCES diseases(id_disease));
+	FOREIGN KEY(id_doctor) REFERENCES doctors(id_doctor),
+	FOREIGN KEY(id_user) REFERENCES users(id_user),
+	FOREIGN KEY(id_disease) REFERENCES diseases(id_disease));
 
 
 CREATE TABLE treatments(
 	id_treatment BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	id_diagnosis BIGINT UNSIGNED NOT NULL,
 	id_medicine INT UNSIGNED NOT NULL,
-	FOREIGN KEY (id_diagnosis) REFERENCES diagnoses(id_diagnosis),
-	FOREIGN KEY (id_medicine) REFERENCES medicines(id_medicine)
+	FOREIGN KEY(id_diagnosis) REFERENCES diagnoses(id_diagnosis),
+	FOREIGN KEY(id_medicine) REFERENCES medicines(id_medicine)
 );
 
 INSERT INTO `users`(username, name, surname, email, country, password)
 VALUES ("root", "Hilon", "Musgo", "hilonmusgo@yahoo.com", "Madagascar", "9af794ed74d814f4baba3f7a5d5e0ac6");
 
 INSERT INTO `users`(username, name, surname, email, country, password)
-VALUES ("tomatito", "Wan", "Pan", "wanpan@bing.com", "Andorra", "gijbh94yh9y594yivb9gh379t78937456957695667");
+VALUES ("tomatito", "Wan", "Pan", "wanpan@bing.com", "Andorra", "548rj9fj49fk40fn2020vfj23949");
 
 INSERT INTO `users`(username, name, surname, email, country, password)
-VALUES ("naranjito", "Tan", "Kan", "tankan@bing.com", "Francia", "kjgbjkgbjkbBKJBKJB34481209unFDlkfnlfkn");
+VALUES ("naranjito", "Tan", "Kan", "tankan@bing.com", "Francia", "gknaklnaognjoi3990390");
 
 INSERT INTO doctors(doctor)
 VALUES ("Alfonso");
@@ -75,35 +76,35 @@ VALUES ("Alfonso");
 INSERT INTO doctors(doctor)
 VALUES ("Bonifacio");
 
-INSERT INTO medicines(medicine, price, secondary_effects, description)
+INSERT INTO medicines(medicine, cost, secondary_effects, description)
 VALUES ("ibuprofeno", 15, "no tiene", "ya no te duele la panxa");
 
-INSERT INTO medicines(medicine, price, secondary_effects, description)
+INSERT INTO medicines(medicine, cost, secondary_effects, description)
 VALUES ("paracetamol", 10, "tampoco tiebe", "ya no te duele la cabesa");
 
-INSERT INTO medicines(medicine, price, secondary_effects, description)
+INSERT INTO medicines(medicine, cost, secondary_effects, description)
 VALUES ("dalsy", 15, "imposible que tenga efectos secundarios", "ta mu bueno");
 
-INSERT INTO medicines(medicine, price, secondary_effects, description)
+INSERT INTO medicines(medicine, cost, secondary_effects, description)
 VALUES ("ebastel", 20, "nerviosismo", "te quita la alergia de un golpe");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("vih","anti","anticuerpos","fiebre","usar siempre proteccion");
+VALUES ("vih","anti",7,"fiebre","usar siempre proteccion");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("lepra","derma","piel","caida de piel","cuidao");
+VALUES ("lepra","derma",6,"caida de piel","cuidao");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("pneumonia","pulmonar","pulmones","no respiras","hay que hacer mas cardio");
+VALUES ("pneumonia","pulmonar",1,"no respiras","hay que hacer mas cardio");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("cancer","oncologia","te mata","fiebre","mu malo");
+VALUES ("cancer","oncologia",8,"fiebre","mu malo");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("gripe","si","no es pa tanto","fiebre","un buen resfriao");
+VALUES ("gripe","si",1,"fiebre","un buen resfriao");
 
 INSERT INTO diseases(disease, medical_area, risk_of_the_disease, common_sympthoms, description)
-VALUES ("covid","china","pneumonia tocha","tos mucha tos","el confinamiento fue real");
+VALUES ("covid","china",10,"tos mucha tos","el confinamiento fue real");
 
 INSERT INTO diagnoses(diagnosis, id_doctor, id_user, id_disease)
 VALUES ("ibuprofeno y pa casa", 1, 1, 5);
